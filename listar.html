@@ -44,12 +44,11 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
     
-        #map {
-            height: 420px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
+       #map {
+            height: calc(100vh - 120px); /* ajusta para caber o header + rodapé */
+            width: 100%;
         }
+
     
         label {
             display: block;
@@ -97,7 +96,7 @@
         /* Rodapé */
         .footer {
             text-align: center;
-            padding: 15px;
+            padding: 12px;
             margin-top: 40px;
             font-size: 14px;
             color: #555;
