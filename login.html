@@ -138,23 +138,24 @@
 
         .welcome {
             position: fixed;
-            top: 40%;
+            top: 15px;
             left: 50%;
-            transform: translate(-50%, -50%);
-            background: #d40000;
-            color: white;
-            padding: 20px 30px;
-            border-radius: 10px;
-            font-size: 22px;
-            font-weight: 700;
+            transform: translateX(-50%);
+            background: #ffffff;
+            color: #d40000;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
             opacity: 0;
             pointer-events: none;
-            transition: opacity 1s ease, transform 1s ease;
-            z-index: 99999;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            z-index: 9999;
         }
         .welcome.show {
             opacity: 1;
-            transform: translate(-50%, -60%);
+            transform: translateX(-50%) translateY(5px);
         }
 
     </style>
@@ -165,6 +166,8 @@
     <div class="header">
         Login
     </div>
+
+    <div id="welcomeMsg" class="welcome"></div>
 
     <div class="login-box">
         <label>Utilizador</label>
@@ -186,41 +189,52 @@
     </div>
 
     <script>
-        function login() {
-            const u = document.getElementById("user").value.trim();
-            const p = document.getElementById("pass").value.trim();
-            const erro = document.getElementById("erroMsg");
-        
-            const frases = [
-                "Bem-vindo ao Mundo do RuiX",
-                "RuiX entrou no edifício",
-                "Sistema armado. RuiX online.",
-                "A lenda voltou.",
-                "RuiX detected. A abrir portas...",
-                "Carregando genialidade...",
-                "O mestre chegou.",
-                "RuiX: 1 • Problemas: 0"
-            ];
-        
-            if (u === "Rui" && p === "RuiX") {
-        
+            function login() {
+                const u = document.getElementById("user").value.trim();
+                const p = document.getElementById("pass").value.trim();
+                const erro = document.getElementById("erroMsg");
                 const msg = document.getElementById("welcomeMsg");
-                msg.textContent = frases[Math.floor(Math.random() * frases.length)];
-                msg.classList.add("show");
         
-                setTimeout(() => {
-                    msg.classList.remove("show");
-                    window.location.href = "index.html";
-                }, 2500);
+                const frases = [
+                    "Bem-vindo ao Mundo do RuiX",
+                    "RuiX entrou no edifício",
+                    "Sistema armado. RuiX online.",
+                    "A lenda voltou.",
+                    "RuiX detected. A abrir portas...",
+                    "Carregando genialidade...",
+                    "O mestre chegou.",
+                    "RuiX: 1 • Problemas: 0"
+                ];
         
-            } else {
-                erro.style.display = "block";
+                if (u === "Rui" && p === "RuiX") {
+                    erro.style.display = "none";
+        
+                    msg.textContent = frases[Math.floor(Math.random() * frases.length)];
+                    msg.classList.add("show");
+        
+                    setTimeout(() => {
+                        msg.classList.remove("show");
+                        window.location.href = "index.html";
+                    }, 2200);
+        
+                } else {
+                    erro.style.display = "block";
+                }
             }
-        }
-    </script>
-
-
-    <div id="welcomeMsg" class="welcome"></div>
+        
+            function togglePassword() {
+                const pass = document.getElementById("pass");
+                const icon = document.querySelector(".toggle-pass");
+        
+                if (pass.type === "password") {
+                    pass.type = "text";
+                    icon.textContent = "🙈";
+                } else {
+                    pass.type = "password";
+                    icon.textContent = "👁️";
+                }
+            }
+        </script>
 
 </body>
 </html>
