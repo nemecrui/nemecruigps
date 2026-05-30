@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login • Cachapuz</title>
+
+    <style>
+        body {
+            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #222;
+            overflow-x: hidden;
+        }
+
+        /* Header estilo Cachapuz */
+        .header {
+            background-color: #1e1e1e;
+            color: white;
+            padding: 18px 25px;
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-bottom: 3px solid #d40000;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+            text-align: center;
+        }
+
+        .header span {
+            color: #d40000;
+        }
+
+        /* Caixa de login com animação */
+        .login-box {
+            max-width: 380px;
+            margin: 60px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+            border: 1px solid #ddd;
+
+            /* ANIMAÇÃO */
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        label {
+            display: block;
+            margin-top: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #d40000;
+            box-shadow: 0 0 6px rgba(212,0,0,0.4);
+        }
+
+        /* Botão mostrar password */
+        .password-wrapper {
+            position: relative;
+        }
+
+        .toggle-pass {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #666;
+        }
+
+        /* Botão Login — Cachapuz Clean Red */
+        .btn {
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: #d40000;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: 0.25s;
+        }
+
+        .btn:hover {
+            background-color: #b30000;
+        }
+
+        /* Mensagem de erro */
+        .erro {
+            margin-top: 15px;
+            color: #d40000;
+            font-weight: 600;
+            text-align: center;
+            display: none;
+        }
+
+        /* Rodapé */
+        .footer {
+            text-align: center;
+            padding: 12px;
+            font-size: 14px;
+            color: #555;
+            opacity: 0.85;
+            margin-top: 40px;
+        }
+
+        .footer span {
+            color: #d40000;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        Login <span>• Cachapuz</span>
+    </div>
+
+    <div class="login-box">
+        <label>Utilizador</label>
+        <input type="text" id="user">
+
+        <label>Password</label>
+        <div class="password-wrapper">
+            <input type="password" id="pass">
+            <span class="toggle-pass" onclick="togglePassword()">👁️</span>
+        </div>
+
+        <button class="btn" onclick="login()">Login</button>
+
+        <div class="erro" id="erroMsg">Utilizador ou password incorretos</div>
+    </div>
+
+    <div class="footer">
+        created with passion by <span>Nemecrui</span>
+    </div>
+
+    <script>
+        function login() {
+            const u = document.getElementById("user").value.trim();
+            const p = document.getElementById("pass").value.trim();
+            const erro = document.getElementById("erroMsg");
+
+            if (u === "Rui" && p === "RuiX") {
+                window.location.href = "index.html";
+            } else {
+                erro.style.display = "block";
+            }
+        }
+
+        function togglePassword() {
+            const pass = document.getElementById("pass");
+            const icon = document.querySelector(".toggle-pass");
+
+            if (pass.type === "password") {
+                pass.type = "text";
+                icon.textContent = "🙈";
+            } else {
+                pass.type = "password";
+                icon.textContent = "👁️";
+            }
+        }
+    </script>
+
+</body>
+</html>
