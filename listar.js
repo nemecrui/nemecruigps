@@ -13,9 +13,19 @@ const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let map = L.map('map').setView([41.55, -8.42], 12);
 
+let markersCluster = L.markerClusterGroup({
+    showCoverageOnHover: false,
+    maxClusterRadius: 60,
+    spiderfyOnMaxZoom: true,
+    animateAddingMarkers: true
+});
+
+map.addLayer(markersCluster);
+
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19
 }).addTo(map);
+
 
 // ===============================
 //  CARREGAR EQUIPAMENTOS
@@ -46,8 +56,9 @@ async function carregarEquipamentos() {
 
         if (!item.latitude || !item.longitude) return;
 
-        const marker = L.marker([item.latitude, item.longitude]).addTo(map);
-        marker._icon.classList.add("marker-bounce");     
+        // ============================
+        // CRIAR POPUP PREMIUM
+        // ============================
 
         let popup = `
             <div class="popup-card">
@@ -90,6 +101,23 @@ async function carregarEquipamentos() {
         if (item.foto2) popup += `<img src="${item.foto2}" width="120"><br>`;
         if (item.foto3) popup += `<img src="${item.foto3}" width="120"><br>`;
 
+        // ============================
+        // CRIAR MARCADOR
+        // ============================
+
+        const marker = L.marker([item.latitude, item.longitude]);
+
+        // adicionar ao cluster
+        markersCluster.addLayer(marker);
+
+        // animação bounce
+        setTimeout(() => {
+            if (marker._icon) {
+                marker._icon.classList.add("marker-bounce");
+            }
+        }, 10);
+
+        // associar popup
         marker.bindPopup(popup);
     });
 }
