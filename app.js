@@ -13,9 +13,14 @@ const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 // ===============================
 let map = L.map('map').setView([41.55, -8.42], 13);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19
-}).addTo(map);
+L.tileLayer(
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    {
+        maxZoom: 19,
+        attribution: 'Tiles © Esri'
+    }
+).addTo(map);
+
 
 let marker = null;
 
