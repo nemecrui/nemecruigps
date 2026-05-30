@@ -11,7 +11,10 @@ const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 //  MAPA LEAFLET
 // ===============================
 
-let map = L.map('map').setView([41.55, -8.42], 12);
+let map = L.map('map', {
+    maxZoom: 19
+}).setView([41.55, -8.42], 12);
+
 
 let markersCluster = L.markerClusterGroup({
     showCoverageOnHover: false,
