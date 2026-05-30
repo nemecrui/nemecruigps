@@ -41,7 +41,7 @@ async function carregarEquipamentos() {
 
         let popup = `
             <div style="font-size:15px; font-weight:600; margin-bottom:6px;">
-                ${item.equipamento}
+                Entidade: ${item.equipamento}
             </div>
         
             <div style="font-size:13px; color:#444;">
@@ -55,7 +55,7 @@ async function carregarEquipamentos() {
                target="_blank"
                style="color:#d40000; font-weight:bold;">
                ➜ Navegar até aqui
-            </a>
+            </a><br><br>
             
             <a href="https://waze.com/ul?ll=${item.latitude},${item.longitude}&navigate=yes" 
                target="_blank" 
