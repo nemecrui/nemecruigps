@@ -223,6 +223,30 @@
     </div>
 
     <script>
+        function escreverTexto(elemento, texto, velocidade = 35) {
+            elemento.textContent = "";
+            let i = 0;
+        
+            function escrever() {
+                if (i < texto.length) {
+        
+                    // escrever letra
+                    elemento.textContent += texto.charAt(i);
+        
+                    // tocar som de teclar
+                    const som = document.getElementById("typeSound");
+                    som.currentTime = 0;
+                    som.play();
+        
+                    i++;
+                    setTimeout(escrever, velocidade);
+                }
+            }
+        
+            escrever();
+        }
+
+
         function login() {
             const u = document.getElementById("user").value.trim();
             const p = document.getElementById("pass").value.trim();
@@ -241,30 +265,36 @@
             ];
     
             if (u === "Rui" && p === "RuiX") {
-                erro.style.display = "none";
-
-                // animação do botão
-                const btn = document.querySelector(".btn");
-                btn.classList.add("login-anim");
-    
-                // tocar som whoosh suave
-                document.getElementById("loginSound").play();
-    
-                // mensagem discreta
-                msg.textContent = frases[Math.floor(Math.random() * frases.length)];
-                msg.classList.add("show");
-    
-                setTimeout(() => {
-                    msg.classList.remove("show");
-                    window.location.href = "index.html";
-                }, 2200);
-
-                // remover animação para permitir repetir
-                setTimeout(() => {
-                    btn.classList.remove("login-anim");
-                }, 400);
-    
-            } else {
+                    erro.style.display = "none";
+                
+                    // animação do botão
+                    const btn = document.querySelector(".btn");
+                    btn.classList.add("login-anim");
+                
+                    // som whoosh
+                    document.getElementById("loginSound").play();
+                
+                    // escolher frase aleatória
+                    const frase = frases[Math.floor(Math.random() * frases.length)];
+                
+                    // mostrar toast
+                    msg.classList.add("show");
+                
+                    // escrever letra a letra
+                    escreverTexto(msg, frase);
+                
+                    // remover animação do botão
+                    setTimeout(() => {
+                        btn.classList.remove("login-anim");
+                    }, 400);
+                
+                    // desaparecer e redirecionar
+                    setTimeout(() => {
+                        msg.classList.remove("show");
+                        window.location.href = "index.html";
+                    }, 2600);
+                }
+             else {
                     erro.style.display = "block";
                 
                     const box = document.querySelector(".login-box");
@@ -293,6 +323,8 @@
 
 
     <audio id="loginSound" src="whoosh.mp3" preload="auto"></audio>
+    <audio id="typeSound" src="typewriter.mp3" preload="auto"></audio>
+
 
 </body>
 </html>
