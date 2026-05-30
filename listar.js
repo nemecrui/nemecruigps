@@ -64,21 +64,21 @@ async function carregarEquipamentos() {
                 <a class="popup-btn" 
                     href="https://www.google.com/maps/dir/?api=1&destination=${item.latitude},${item.longitude}"
                    target="_blank"
-                   style="color:#d40000; font-weight:bold;">
+                   style="color:white; font-weight:bold;">
                    ➜ Navegar até aqui
                 </a><br><br>
                 
                 <a class="popup-btn"
                     href="https://waze.com/ul?ll=${item.latitude},${item.longitude}&navigate=yes" 
                    target="_blank" 
-                   style="color:green; font-weight:bold;">
+                   style="color:white; font-weight:bold;">
                    🚗 Navegar com Waze
                 </a><br><br>
             
                 <a class="popup-btn"
                    href="http://maps.apple.com/?daddr=${item.latitude},${item.longitude}" 
                    target="_blank" 
-                   style="color:black; font-weight:bold;">
+                   style="color:white; font-weight:bold;">
                    🍎 Navegar com Apple Maps
             
                 </a><br><br>
