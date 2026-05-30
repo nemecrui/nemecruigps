@@ -49,36 +49,40 @@ async function carregarEquipamentos() {
         const marker = L.marker([item.latitude, item.longitude]).addTo(map);
 
         let popup = `
-            <div style="font-size:15px; font-weight:600; margin-bottom:6px;">
-                Entidade: ${item.equipamento}
-            </div>
-        
-            <div style="font-size:13px; color:#444;">
-                Marca: <b>${item.marca || "—"}</b><br>
-                Registado em: <small>${formatarData(item.data_registo)}
-</small>
-            </div>
-        
-            <hr style="margin:10px 0;">
-        
-            <a href="https://www.google.com/maps/dir/?api=1&destination=${item.latitude},${item.longitude}"
-               target="_blank"
-               style="color:#d40000; font-weight:bold;">
-               ➜ Navegar até aqui
-            </a><br><br>
+            <div class="popup-card">
+                <div class="popup-title">
+                    Entidade: ${item.equipamento}
+                </div>
             
-            <a href="https://waze.com/ul?ll=${item.latitude},${item.longitude}&navigate=yes" 
-               target="_blank" 
-               style="color:green; font-weight:bold;">
-               🚗 Navegar com Waze
-            </a><br><br>
-        
-            <a href="http://maps.apple.com/?daddr=${item.latitude},${item.longitude}" 
-               target="_blank" 
-               style="color:black; font-weight:bold;">
-               🍎 Navegar com Apple Maps
-        
-            <br><br>
+                <div class="popup-info">
+                    Marca: <b>${item.marca || "—"}</b><br>
+                    Registado em: <small>${formatarData(item.data_registo)}</small>
+                </div>
+            
+                <hr class="popup-sep">
+            
+                <a class="popup-btn" 
+                    href="https://www.google.com/maps/dir/?api=1&destination=${item.latitude},${item.longitude}"
+                   target="_blank"
+                   style="color:#d40000; font-weight:bold;">
+                   ➜ Navegar até aqui
+                </a><br><br>
+                
+                <a class="popup-btn"
+                    href="https://waze.com/ul?ll=${item.latitude},${item.longitude}&navigate=yes" 
+                   target="_blank" 
+                   style="color:green; font-weight:bold;">
+                   🚗 Navegar com Waze
+                </a><br><br>
+            
+                <a class="popup-btn"
+                   href="http://maps.apple.com/?daddr=${item.latitude},${item.longitude}" 
+                   target="_blank" 
+                   style="color:black; font-weight:bold;">
+                   🍎 Navegar com Apple Maps
+            
+                </a><br><br>
+            </div>
         `;
         
         if (item.foto1) popup += `<img src="${item.foto1}" width="120"><br>`;
