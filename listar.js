@@ -25,9 +25,13 @@ let markersCluster = L.markerClusterGroup({
 
 map.addLayer(markersCluster);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19
-}).addTo(map);
+L.tileLayer(
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', 
+    {
+        maxZoom: 19,
+        attribution: 'Tiles © Esri'
+    }
+).addTo(map);
 
 
 // ===============================
