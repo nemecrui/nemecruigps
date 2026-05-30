@@ -95,6 +95,29 @@
             background-color: #555;
         }
 
+        /* Linha de botões */
+            .btn-row {
+                display: flex;
+                justify-content: space-between; /* um à esquerda, outro à direita */
+                align-items: center;
+                margin-bottom: 20px; /* espaço antes do mapa */
+                gap: 20px; /* espaço entre eles em ecrãs pequenos */
+            }
+            
+            /* Em ecrãs pequenos, os botões ficam um por linha */
+            @media (max-width: 600px) {
+                .btn-row {
+                    flex-direction: column;
+                    justify-content: center;
+                    gap: 10px;
+                }
+            
+                .btn-row .btn {
+                    width: 100%;
+                }
+            }
+
+
     
         /* Rodapé */
         .footer {
@@ -124,10 +147,15 @@
             Clique no mapa para selecionar a localização ou use o botão abaixo para obter a localização atual via GPS.
         </div>
 
-        <button class="btn" onclick="usarGPS()">Usar localização atual (GPS)</button>
-        <button class="btn" onclick="window.location.href='listar.html'">
-            📍 Ver equipamentos registados
-        </button>
+        <div class="btn-row">
+            <button class="btn-secondary btn" onclick="usarGPS()">
+                Usar localização atual (GPS)
+            </button>
+        
+            <button class="btn-secondary btn" onclick="window.location.href='listar.html'">
+                Ver equipamentos registados
+            </button>
+        </div>
 
 
 
