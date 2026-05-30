@@ -21,6 +21,15 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //  CARREGAR EQUIPAMENTOS
 // ===============================
 
+function formatarData(dataISO) {
+    const d = new Date(dataISO);
+    const dia = String(d.getDate()).padStart(2, '0');
+    const mes = String(d.getMonth() + 1).padStart(2, '0');
+    const ano = d.getFullYear();
+    return `${dia}/${mes}/${ano}`;
+}
+
+
 async function carregarEquipamentos() {
 
     const { data, error } = await client
@@ -46,7 +55,8 @@ async function carregarEquipamentos() {
         
             <div style="font-size:13px; color:#444;">
                 Marca: <b>${item.marca || "—"}</b><br>
-                Registado em: <small>${item.data_registo}</small>
+                Registado em: <small>${formatarData(item.data_registo)}
+</small>
             </div>
         
             <hr style="margin:10px 0;">
