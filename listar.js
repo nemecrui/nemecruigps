@@ -2,8 +2,8 @@
 //  CONFIGURAÇÃO SUPABASE
 // ===============================
 
-const SUPABASE_URL = "https://xxxx.supabase.co";   // substituir
-const SUPABASE_KEY = "eyJhbGciOi...";              // substituir
+const SUPABASE_URL = "https://ywufoxqirjneltvqgyqy.supabase.co";
+const SUPABASE_KEY = "sb_publishable_3Ki-NcvwZpvBczga9nhjJg_qmjBEXwC";
 
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
