@@ -135,13 +135,35 @@
             color: #d40000;
             font-weight: bold;
         }
+
+        .welcome {
+            position: fixed;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #d40000;
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            font-size: 22px;
+            font-weight: 700;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease, transform 1s ease;
+            z-index: 99999;
+        }
+        .welcome.show {
+            opacity: 1;
+            transform: translate(-50%, -60%);
+        }
+
     </style>
 </head>
 
 <body>
 
     <div class="header">
-        Login <span>• Cachapuz</span>
+        Login
     </div>
 
     <div class="login-box">
@@ -168,27 +190,37 @@
             const u = document.getElementById("user").value.trim();
             const p = document.getElementById("pass").value.trim();
             const erro = document.getElementById("erroMsg");
-
+        
+            const frases = [
+                "Bem-vindo ao Mundo do RuiX",
+                "RuiX entrou no edifício",
+                "Sistema armado. RuiX online.",
+                "A lenda voltou.",
+                "RuiX detected. A abrir portas...",
+                "Carregando genialidade...",
+                "O mestre chegou.",
+                "RuiX: 1 • Problemas: 0"
+            ];
+        
             if (u === "Rui" && p === "RuiX") {
-                window.location.href = "index.html";
+        
+                const msg = document.getElementById("welcomeMsg");
+                msg.textContent = frases[Math.floor(Math.random() * frases.length)];
+                msg.classList.add("show");
+        
+                setTimeout(() => {
+                    msg.classList.remove("show");
+                    window.location.href = "index.html";
+                }, 2500);
+        
             } else {
                 erro.style.display = "block";
             }
         }
-
-        function togglePassword() {
-            const pass = document.getElementById("pass");
-            const icon = document.querySelector(".toggle-pass");
-
-            if (pass.type === "password") {
-                pass.type = "text";
-                icon.textContent = "🙈";
-            } else {
-                pass.type = "password";
-                icon.textContent = "👁️";
-            }
-        }
     </script>
+
+
+    <div id="welcomeMsg" class="welcome"></div>
 
 </body>
 </html>
