@@ -15,94 +15,64 @@
             padding: 0;
             color: #222;
         }
-    
+
         /* Header estilo Cachapuz */
         .header {
             background-color: #1e1e1e;
             color: white;
             padding: 18px 25px;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 600;
             letter-spacing: 0.5px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            border-bottom: 3px solid #d40000;
             box-shadow: 0 2px 6px rgba(0,0,0,0.35);
         }
-    
+
         .header span {
-            color: #d40000; /* vermelho Cachapuz */
-        }
-    
-        /* Container estilo cartão */
-        .container {
-            max-width: 900px;
-            margin: 25px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-    
-       #map {
-            height: calc(100vh - 120px); /* ajusta para caber o header + rodapé */
-            width: 100%;
+            color: #d40000;
         }
 
-    
-        label {
-            display: block;
-            margin-top: 14px;
-            font-weight: 600;
-            color: #333;
-        }
-    
-        input[type="text"],
-        input[type="file"] {
-            width: 100%;
-            padding: 10px;
-            margin-top: 6px;
-            border: 1px solid #bbb;
-            border-radius: 6px;
-            font-size: 15px;
-        }
-    
-        .btn {
-            margin-top: 15px;
-            padding: 10px 26px;
-            background-color: #d40000;
+        /* Botão voltar */
+        .btn-back {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 18px;
+            background-color: #333;
             color: white;
             border: none;
-            border-radius: 30px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 15px;
             font-weight: 600;
             transition: 0.25s;
+            z-index: 9999;
         }
-        
-        .btn:hover {
-            background-color: #a80000;
+
+        .btn-back:hover {
+            background-color: #555;
         }
-        
-        .btn-secondary {
-            background-color: #444;
-            border-radius: 30px;
+
+        /* Mapa ajustado para não esmagar o rodapé */
+        #map {
+            height: calc(100vh - 140px);
+            width: 100%;
         }
-        
-        .btn-secondary:hover {
-            background-color: #666;
-        }
-    
+
         /* Rodapé */
         .footer {
             text-align: center;
             padding: 12px;
-            margin-top: 40px;
             font-size: 14px;
             color: #555;
-            opacity: 0.8;
+            opacity: 0.85;
+            background: #f2f2f2;
+            border-top: 1px solid #ddd;
         }
-    
+
         .footer span {
             color: #d40000;
             font-weight: bold;
@@ -112,23 +82,23 @@
 
 <body>
 
-    <div class="header">Registo de Equipamentos - GPS</div>
+    <div class="header">
+        Equipamentos Registados <span>• Cachapuz</span>
+    </div>
 
-    <button class="btn-secondary btn" onclick="window.location.href='index.html'">
+    <button class="btn-back" onclick="window.location.href='index.html'">
         Voltar
     </button>
 
     <div id="map"></div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="listar.js"></script>
-
     <div class="footer">
         created with passion by <span>Nemecrui</span>
     </div>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="listar.js"></script>
+
 </body>
-
-
 </html>
