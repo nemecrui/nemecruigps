@@ -112,6 +112,40 @@
             background-color: #b30000;
         }
 
+        .btn.login-anim {
+            animation: pulseLogin 0.35s ease-out;
+        }
+        
+        @keyframes pulseLogin {
+            0% {
+                transform: scale(1);
+                background-color: #d40000;
+            }
+            40% {
+                transform: scale(1.07);
+                background-color: #e31a1a;
+            }
+            100% {
+                transform: scale(1);
+                background-color: #d40000;
+            }
+        }
+
+        .shake {
+                animation: shakeAnim 0.35s ease;
+            }
+            
+            @keyframes shakeAnim {
+                0% { transform: translateX(0); }
+                20% { transform: translateX(-6px); }
+                40% { transform: translateX(6px); }
+                60% { transform: translateX(-4px); }
+                80% { transform: translateX(4px); }
+                100% { transform: translateX(0); }
+            }
+
+
+
         /* Mensagem de erro */
         .erro {
             margin-top: 15px;
@@ -189,52 +223,76 @@
     </div>
 
     <script>
-            function login() {
-                const u = document.getElementById("user").value.trim();
-                const p = document.getElementById("pass").value.trim();
-                const erro = document.getElementById("erroMsg");
-                const msg = document.getElementById("welcomeMsg");
-        
-                const frases = [
-                    "Bem-vindo ao Mundo do RuiX",
-                    "RuiX entrou no edifício",
-                    "Sistema armado. RuiX online.",
-                    "A lenda voltou.",
-                    "RuiX detected. A abrir portas...",
-                    "Carregando genialidade...",
-                    "O mestre chegou.",
-                    "RuiX: 1 • Problemas: 0"
-                ];
-        
-                if (u === "Rui" && p === "RuiX") {
-                    erro.style.display = "none";
-        
-                    msg.textContent = frases[Math.floor(Math.random() * frases.length)];
-                    msg.classList.add("show");
-        
-                    setTimeout(() => {
-                        msg.classList.remove("show");
-                        window.location.href = "index.html";
-                    }, 2200);
-        
-                } else {
+        function login() {
+            const u = document.getElementById("user").value.trim();
+            const p = document.getElementById("pass").value.trim();
+            const erro = document.getElementById("erroMsg");
+            const msg = document.getElementById("welcomeMsg");
+    
+            const frases = [
+                "Bem-vindo ao Mundo do RuiX",
+                "RuiX entrou no edifício",
+                "Sistema armado. RuiX online.",
+                "A lenda voltou.",
+                "RuiX detected. A abrir portas...",
+                "Carregando genialidade...",
+                "O mestre chegou.",
+                "RuiX: 1 • Problemas: 0"
+            ];
+    
+            if (u === "Rui" && p === "RuiX") {
+                erro.style.display = "none";
+
+                // animação do botão
+                const btn = document.querySelector(".btn");
+                btn.classList.add("login-anim");
+    
+                // tocar som whoosh suave
+                document.getElementById("loginSound").play();
+    
+                // mensagem discreta
+                msg.textContent = frases[Math.floor(Math.random() * frases.length)];
+                msg.classList.add("show");
+    
+                setTimeout(() => {
+                    msg.classList.remove("show");
+                    window.location.href = "index.html";
+                }, 2200);
+
+                // remover animação para permitir repetir
+                setTimeout(() => {
+                    btn.classList.remove("login-anim");
+                }, 400);
+    
+            } else {
                     erro.style.display = "block";
+                
+                    const box = document.querySelector(".login-box");
+                    box.classList.add("shake");
+                
+                    setTimeout(() => {
+                        box.classList.remove("shake");
+                    }, 400);
                 }
+
+        }
+    
+        function togglePassword() {
+            const pass = document.getElementById("pass");
+            const icon = document.querySelector(".toggle-pass");
+    
+            if (pass.type === "password") {
+                pass.type = "text";
+                icon.textContent = "🙈";
+            } else {
+                pass.type = "password";
+                icon.textContent = "👁️";
             }
-        
-            function togglePassword() {
-                const pass = document.getElementById("pass");
-                const icon = document.querySelector(".toggle-pass");
-        
-                if (pass.type === "password") {
-                    pass.type = "text";
-                    icon.textContent = "🙈";
-                } else {
-                    pass.type = "password";
-                    icon.textContent = "👁️";
-                }
-            }
-        </script>
+        }
+    </script>
+
+
+    <audio id="loginSound" src="whoosh.mp3" preload="auto"></audio>
 
 </body>
 </html>
