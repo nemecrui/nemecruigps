@@ -40,16 +40,23 @@ async function carregarEquipamentos() {
         const marker = L.marker([item.latitude, item.longitude]).addTo(map);
 
         let popup = `
-            <b>${item.equipamento}</b><br>
-            Marca: ${item.marca || "—"}<br>
-            <small>${item.data_registo}</small><br><br>
+            <div style="font-size:15px; font-weight:600; margin-bottom:6px;">
+                ${item.equipamento}
+            </div>
         
-            <a href="https://www.google.com/maps/dir/?api=1&destination=${item.latitude},${item.longitude}" 
-               target="_blank" 
-               style="color:blue; font-weight:bold;">
-               📍 Navegar com Google Maps
-            </a><br><br>
+            <div style="font-size:13px; color:#444;">
+                Marca: <b>${item.marca || "—"}</b><br>
+                Registado em: <small>${item.data_registo}</small>
+            </div>
         
+            <hr style="margin:10px 0;">
+        
+            <a href="https://www.google.com/maps/dir/?api=1&destination=${item.latitude},${item.longitude}"
+               target="_blank"
+               style="color:#d40000; font-weight:bold;">
+               ➜ Navegar até aqui
+            </a>
+            
             <a href="https://waze.com/ul?ll=${item.latitude},${item.longitude}&navigate=yes" 
                target="_blank" 
                style="color:green; font-weight:bold;">
@@ -60,10 +67,10 @@ async function carregarEquipamentos() {
                target="_blank" 
                style="color:black; font-weight:bold;">
                🍎 Navegar com Apple Maps
-            </a><br><br>
+        
+            <br><br>
         `;
-
-
+        
         if (item.foto1) popup += `<img src="${item.foto1}" width="120"><br>`;
         if (item.foto2) popup += `<img src="${item.foto2}" width="120"><br>`;
         if (item.foto3) popup += `<img src="${item.foto3}" width="120"><br>`;
