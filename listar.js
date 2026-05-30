@@ -47,6 +47,7 @@ async function carregarEquipamentos() {
         if (!item.latitude || !item.longitude) return;
 
         const marker = L.marker([item.latitude, item.longitude]).addTo(map);
+        marker._icon.classList.add("marker-bounce");     
 
         let popup = `
             <div class="popup-card">
