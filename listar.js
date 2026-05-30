@@ -43,7 +43,26 @@ async function carregarEquipamentos() {
             <b>${item.equipamento}</b><br>
             Marca: ${item.marca || "—"}<br>
             <small>${item.data_registo}</small><br><br>
+        
+            <a href="https://www.google.com/maps/dir/?api=1&destination=${item.latitude},${item.longitude}" 
+               target="_blank" 
+               style="color:blue; font-weight:bold;">
+               📍 Navegar com Google Maps
+            </a><br><br>
+        
+            <a href="https://waze.com/ul?ll=${item.latitude},${item.longitude}&navigate=yes" 
+               target="_blank" 
+               style="color:green; font-weight:bold;">
+               🚗 Navegar com Waze
+            </a><br><br>
+        
+            <a href="http://maps.apple.com/?daddr=${item.latitude},${item.longitude}" 
+               target="_blank" 
+               style="color:black; font-weight:bold;">
+               🍎 Navegar com Apple Maps
+            </a><br><br>
         `;
+
 
         if (item.foto1) popup += `<img src="${item.foto1}" width="120"><br>`;
         if (item.foto2) popup += `<img src="${item.foto2}" width="120"><br>`;
