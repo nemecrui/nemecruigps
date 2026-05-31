@@ -25,15 +25,17 @@ let modo3D = false;
 function iniciarMapa3D() {
     map3D = new maplibregl.Map({
         container: 'map',
-        style: 'https://tiles.stadiamaps.com/styles/alidade_satellite.json',
+        style: 'https://demotiles.maplibre.org/style.json',
         center: [-8.42, 41.55],
         zoom: 13,
         pitch: 60,
-        bearing: -20
+        bearing: -20,
+        antialias: true
     });
 
     map3D.addControl(new maplibregl.NavigationControl());
 }
+
 
 // ===============================
 //  BOTÃO 2D / 3D
