@@ -41,9 +41,6 @@ const normal = L.tileLayer(
     { maxZoom: 19 }
 );
 
-satelite.addTo(map);
-labels.addTo(map);
-
 let modoNormal = false;
 
 document.getElementById("toggle3d").addEventListener("click", () => {
@@ -52,6 +49,7 @@ document.getElementById("toggle3d").addEventListener("click", () => {
             // MUDAR PARA MAPA NORMAL
             map.removeLayer(satelite);
             normal.addTo(map);
+            labels.bringToFront();
             document.getElementById("toggle3d").innerText = "Satélite";
             modoNormal = true;
     
@@ -59,6 +57,7 @@ document.getElementById("toggle3d").addEventListener("click", () => {
             // VOLTAR AO SATÉLITE
             map.removeLayer(normal);
             satelite.addTo(map);
+            labels.bringToFront();
             document.getElementById("toggle3d").innerText = "Normal";
             modoNormal = false;
         }
@@ -79,7 +78,9 @@ const labels = L.tileLayer(
     }
 );
 
+satelite.addTo(map);
 labels.addTo(map);
+
 
 // ===============================
 //  FORMATAR DATA
