@@ -37,7 +37,7 @@ function iniciarMapa3D() {
                 },
                 osm_buildings: {
                     type: "vector",
-                    url: "https://demotiles.maplibre.org/tiles/tiles.json"
+                    url: "https://tiles.openfreemap.org/planet.json"
                 }
             },
             layers: [
@@ -59,9 +59,9 @@ function iniciarMapa3D() {
                             ["linear"],
                             ["zoom"],
                             15, 0,
-                            16, ["get", "render_height"]
+                            16, ["get", "height"]
                         ],
-                        "fill-extrusion-base": ["get", "render_min_height"],
+                        "fill-extrusion-base": 0,
                         "fill-extrusion-opacity": 0.8
                     }
                 }
@@ -76,6 +76,7 @@ function iniciarMapa3D() {
 
     map3D.addControl(new maplibregl.NavigationControl());
 }
+
 
 
 
