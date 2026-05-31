@@ -21,6 +21,15 @@ L.tileLayer(
     }
 ).addTo(map);
 
+const labels = L.tileLayer(
+    'https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png',
+    {
+        maxZoom: 19,
+        opacity: 0.85
+    }
+).addTo(map);
+
+
 
 let marker = null;
 
