@@ -15,6 +15,41 @@ let map = L.map('map', {
     maxZoom: 19
 }).setView([41.55, -8.42], 12);
 
+let map3D = null;
+
+function iniciarMapa3D() {
+    map3D = new maplibregl.Map({
+        container: 'map',
+        style: 'https://tiles.stadiamaps.com/styles/alidade_satellite.json',
+        center: [-8.42, 41.55],
+        zoom: 13,
+        pitch: 60,
+        bearing: -20
+    });
+
+let modo3D = false;
+
+document.getElementById("toggle3d").addEventListener("click", () => {
+
+    if (!modo3D) {
+        // ATIVAR 3D
+        map.remove(); // desliga Leaflet
+        iniciarMapa3D();
+        document.getElementById("toggle3d").innerText = "2D";
+        modo3D = true;
+    } else {
+        // VOLTAR AO 2D
+        map3D.remove(); // desliga MapLibre
+        location.reload(); // recarrega Leaflet com clusters
+        // (mais limpo que recriar Leaflet manualmente)
+    }
+});
+
+
+    map3D.addControl(new maplibregl.NavigationControl());
+}
+
+
 
 let markersCluster = L.markerClusterGroup({
     showCoverageOnHover: false,
