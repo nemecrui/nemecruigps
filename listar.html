@@ -14,6 +14,10 @@
     <!-- MarkerCluster JS -->
     <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
 
+    <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+
+
 
     <style>
         body {
@@ -89,6 +93,25 @@
             background-color: #d40000;
             color: white;
         }
+
+        .btn-3d {
+            position: absolute;
+            top: 90px;
+            right: 20px;
+            z-index: 9999;
+            padding: 10px 18px;
+            background: #d40000;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
+        .btn-3d:hover {
+            background: #b30000;
+        }
+
 
         .marker-bounce {
             animation: bounceIn 0.6s ease-out;
@@ -184,6 +207,8 @@
     <button class="btn-back" onclick="window.location.href='index.html'">
         Voltar
     </button>
+    <button id="toggle3d" class="btn-3d">3D</button>
+
 
     <div id="map"></div>
 
