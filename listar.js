@@ -8,7 +8,7 @@ const SUPABASE_KEY = "sb_publishable_3Ki-NcvwZpvBczga9nhjJg_qmjBEXwC";
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // ===============================
-//  MAPA LEAFLET
+//  MAPA LEAFLET (2D)
 // ===============================
 
 let map = L.map('map', {
@@ -18,6 +18,9 @@ let map = L.map('map', {
 let map3D = null;
 let modo3D = false;
 
+// ===============================
+//  FUNÇÃO PARA INICIAR MAPA 3D
+// ===============================
 
 function iniciarMapa3D() {
     map3D = new maplibregl.Map({
@@ -32,11 +35,15 @@ function iniciarMapa3D() {
     map3D.addControl(new maplibregl.NavigationControl());
 }
 
+// ===============================
+//  BOTÃO 2D / 3D
+// ===============================
+
 document.getElementById("toggle3d").addEventListener("click", () => {
 
     if (!modo3D) {
         // ATIVAR 3D
-        map.remove(); 
+        map.remove();
         iniciarMapa3D();
         document.getElementById("toggle3d").innerText = "2D";
         modo3D = true;
@@ -45,8 +52,8 @@ document.getElementById("toggle3d").addEventListener("click", () => {
         // VOLTAR AO 2D
         map3D.remove();
 
-        // recriar Leaflet sem reload
         map = L.map('map', { maxZoom: 19 }).setView([41.55, -8.42], 12);
+
         L.tileLayer(
             'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
             { maxZoom: 19 }
@@ -58,12 +65,6 @@ document.getElementById("toggle3d").addEventListener("click", () => {
         modo3D = false;
     }
 });
-
-
-
-    map3D.addControl(new maplibregl.NavigationControl());
-}
-
 
 
 let markersCluster = L.markerClusterGroup({
