@@ -29,10 +29,41 @@ map.addLayer(markersCluster);
 //  CAMADA SATÉLITE
 // ===============================
 
-L.tileLayer(
+// CAMADA SATÉLITE
+const satelite = L.tileLayer(
     'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
     { maxZoom: 19 }
-).addTo(map);
+);
+
+// CAMADA NORMAL (OSM)
+const normal = L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    { maxZoom: 19 }
+);
+
+satelite.addTo(map);
+
+let modoNormal = false;
+
+    document.getElementById("toggle3d").addEventListener("click", () => {
+    
+        if (!modoNormal) {
+            // MUDAR PARA MAPA NORMAL
+            map.removeLayer(satelite);
+            normal.addTo(map);
+            document.getElementById("toggle3d").innerText = "Satélite";
+            modoNormal = true;
+    
+        } else {
+            // VOLTAR AO SATÉLITE
+            map.removeLayer(normal);
+            satelite.addTo(map);
+            document.getElementById("toggle3d").innerText = "Normal";
+            modoNormal = false;
+        }
+    });
+
+
 
 // ===============================
 //  CAMADA LABELS (MODO HÍBRIDO)
