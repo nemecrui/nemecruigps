@@ -16,6 +16,8 @@ let map = L.map('map', {
 }).setView([41.55, -8.42], 12);
 
 let map3D = null;
+let modo3D = false;
+
 
 function iniciarMapa3D() {
     map3D = new maplibregl.Map({
@@ -27,23 +29,36 @@ function iniciarMapa3D() {
         bearing: -20
     });
 
-let modo3D = false;
+    map3D.addControl(new maplibregl.NavigationControl());
+}
 
 document.getElementById("toggle3d").addEventListener("click", () => {
 
     if (!modo3D) {
         // ATIVAR 3D
-        map.remove(); // desliga Leaflet
+        map.remove(); 
         iniciarMapa3D();
         document.getElementById("toggle3d").innerText = "2D";
         modo3D = true;
+
     } else {
         // VOLTAR AO 2D
-        map3D.remove(); // desliga MapLibre
-        location.reload(); // recarrega Leaflet com clusters
-        // (mais limpo que recriar Leaflet manualmente)
+        map3D.remove();
+
+        // recriar Leaflet sem reload
+        map = L.map('map', { maxZoom: 19 }).setView([41.55, -8.42], 12);
+        L.tileLayer(
+            'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+            { maxZoom: 19 }
+        ).addTo(map);
+
+        map.addLayer(markersCluster);
+
+        document.getElementById("toggle3d").innerText = "3D";
+        modo3D = false;
     }
 });
+
 
 
     map3D.addControl(new maplibregl.NavigationControl());
