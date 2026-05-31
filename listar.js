@@ -35,9 +35,9 @@ function iniciarMapa3D() {
                     ],
                     tileSize: 256
                 },
-                osm_buildings: {
+                buildings: {
                     type: "vector",
-                    url: "https://tiles.openfreemap.org/planet.json"
+                    url: "https://data.osmbuildings.org/0.2/anonymous/tile.json"
                 }
             },
             layers: [
@@ -49,18 +49,12 @@ function iniciarMapa3D() {
                 {
                     id: "3d-buildings",
                     type: "fill-extrusion",
-                    source: "osm_buildings",
+                    source: "buildings",
                     "source-layer": "building",
                     minzoom: 15,
                     paint: {
                         "fill-extrusion-color": "#d40000",
-                        "fill-extrusion-height": [
-                            "interpolate",
-                            ["linear"],
-                            ["zoom"],
-                            15, 0,
-                            16, ["get", "height"]
-                        ],
+                        "fill-extrusion-height": ["get", "height"],
                         "fill-extrusion-base": 0,
                         "fill-extrusion-opacity": 0.8
                     }
@@ -68,7 +62,7 @@ function iniciarMapa3D() {
             ]
         },
         center: [-8.42, 41.55],
-        zoom: 15,
+        zoom: 16,
         pitch: 60,
         bearing: -20,
         antialias: true
