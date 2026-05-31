@@ -15,82 +15,7 @@ let map = L.map('map', {
     maxZoom: 19
 }).setView([41.55, -8.42], 12);
 
-let map3D = null;
-let modo3D = false;
-
-// ===============================
-//  FUNÇÃO PARA INICIAR MAPA 3D
-// ===============================
-
-function iniciarMapa3D() {
-    map3D = new maplibregl.Map({
-        container: 'map',
-        style: "https://demotiles.maplibre.org/style.json",
-        center: [-8.42, 41.55],
-        zoom: 15,
-        pitch: 60,
-        bearing: -20,
-        antialias: true
-    });
-
-    map3D.on("load", () => {
-
-        // ADICIONAR SATÉLITE ESRI POR CIMA (opcional)
-        map3D.addSource("esri", {
-            type: "raster",
-            tiles: [
-                "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-            ],
-            tileSize: 256
-        });
-
-        map3D.addLayer({
-            id: "esri-layer",
-            type: "raster",
-            source: "esri",
-            paint: { "raster-opacity": 0.7 }
-        });
-    });
-
-    map3D.addControl(new maplibregl.NavigationControl());
-}
-
-
-
-
-
-// ===============================
-//  BOTÃO 2D / 3D
-// ===============================
-
-document.getElementById("toggle3d").addEventListener("click", () => {
-
-    if (!modo3D) {
-        // ATIVAR 3D
-        map.remove();
-        iniciarMapa3D();
-        document.getElementById("toggle3d").innerText = "2D";
-        modo3D = true;
-
-    } else {
-        // VOLTAR AO 2D
-        map3D.remove();
-
-        map = L.map('map', { maxZoom: 19 }).setView([41.55, -8.42], 12);
-
-        L.tileLayer(
-            'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-            { maxZoom: 19 }
-        ).addTo(map);
-
-        map.addLayer(markersCluster);
-
-        document.getElementById("toggle3d").innerText = "3D";
-        modo3D = false;
-    }
-});
-
-
+// CLUSTERS
 let markersCluster = L.markerClusterGroup({
     showCoverageOnHover: false,
     maxClusterRadius: 60,
@@ -100,17 +25,32 @@ let markersCluster = L.markerClusterGroup({
 
 map.addLayer(markersCluster);
 
+// ===============================
+//  CAMADA SATÉLITE
+// ===============================
+
 L.tileLayer(
-    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', 
-    {
-        maxZoom: 19,
-        attribution: 'Tiles © Esri'
-    }
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    { maxZoom: 19 }
 ).addTo(map);
 
+// ===============================
+//  CAMADA LABELS (MODO HÍBRIDO)
+// ===============================
+
+const labels = L.tileLayer(
+    'https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png',
+    {
+        maxZoom: 19,
+        opacity: 0.85,
+        attribution: '© OpenStreetMap, © Carto'
+    }
+);
+
+labels.addTo(map);
 
 // ===============================
-//  CARREGAR EQUIPAMENTOS
+//  FORMATAR DATA
 // ===============================
 
 function formatarData(dataISO) {
@@ -121,6 +61,9 @@ function formatarData(dataISO) {
     return `${dia}/${mes}/${ano}`;
 }
 
+// ===============================
+//  CARREGAR EQUIPAMENTOS
+// ===============================
 
 async function carregarEquipamentos() {
 
@@ -139,7 +82,7 @@ async function carregarEquipamentos() {
         if (!item.latitude || !item.longitude) return;
 
         // ============================
-        // CRIAR POPUP PREMIUM
+        // POPUP PREMIUM
         // ============================
 
         let popup = `
@@ -174,7 +117,6 @@ async function carregarEquipamentos() {
                    target="_blank" 
                    style="color:white; font-weight:bold;">
                    🍎 Navegar com Apple Maps
-            
                 </a><br><br>
             </div>
         `;
@@ -184,12 +126,11 @@ async function carregarEquipamentos() {
         if (item.foto3) popup += `<img src="${item.foto3}" width="120"><br>`;
 
         // ============================
-        // CRIAR MARCADOR
+        // MARCADOR
         // ============================
 
         const marker = L.marker([item.latitude, item.longitude]);
 
-        // adicionar ao cluster
         markersCluster.addLayer(marker);
 
         // animação bounce
@@ -199,7 +140,6 @@ async function carregarEquipamentos() {
             }
         }, 10);
 
-        // associar popup
         marker.bindPopup(popup);
     });
 }
