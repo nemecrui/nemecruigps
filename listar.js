@@ -25,47 +25,31 @@ let modo3D = false;
 function iniciarMapa3D() {
     map3D = new maplibregl.Map({
         container: 'map',
-        style: {
-            version: 8,
-            sources: {
-                esri: {
-                    type: "raster",
-                    tiles: [
-                        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-                    ],
-                    tileSize: 256
-                },
-                buildings: {
-                    type: "vector",
-                    url: "https://data.osmbuildings.org/0.2/anonymous/tile.json"
-                }
-            },
-            layers: [
-                {
-                    id: "esri-layer",
-                    type: "raster",
-                    source: "esri"
-                },
-                {
-                    id: "3d-buildings",
-                    type: "fill-extrusion",
-                    source: "buildings",
-                    "source-layer": "building",
-                    minzoom: 15,
-                    paint: {
-                        "fill-extrusion-color": "#d40000",
-                        "fill-extrusion-height": ["get", "height"],
-                        "fill-extrusion-base": 0,
-                        "fill-extrusion-opacity": 0.8
-                    }
-                }
-            ]
-        },
+        style: "https://demotiles.maplibre.org/style.json",
         center: [-8.42, 41.55],
-        zoom: 16,
+        zoom: 15,
         pitch: 60,
         bearing: -20,
         antialias: true
+    });
+
+    map3D.on("load", () => {
+
+        // ADICIONAR SATÉLITE ESRI POR CIMA (opcional)
+        map3D.addSource("esri", {
+            type: "raster",
+            tiles: [
+                "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+            ],
+            tileSize: 256
+        });
+
+        map3D.addLayer({
+            id: "esri-layer",
+            type: "raster",
+            source: "esri",
+            paint: { "raster-opacity": 0.7 }
+        });
     });
 
     map3D.addControl(new maplibregl.NavigationControl());
