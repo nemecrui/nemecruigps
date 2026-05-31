@@ -42,10 +42,11 @@ const normal = L.tileLayer(
 );
 
 satelite.addTo(map);
+labels.addTo(map);
 
 let modoNormal = false;
 
-    document.getElementById("toggle3d").addEventListener("click", () => {
+document.getElementById("toggle3d").addEventListener("click", () => {
     
         if (!modoNormal) {
             // MUDAR PARA MAPA NORMAL
