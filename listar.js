@@ -34,6 +34,10 @@ function iniciarMapa3D() {
                         "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
                     ],
                     tileSize: 256
+                },
+                osm_buildings: {
+                    type: "vector",
+                    url: "https://demotiles.maplibre.org/tiles/tiles.json"
                 }
             },
             layers: [
@@ -41,11 +45,30 @@ function iniciarMapa3D() {
                     id: "esri-layer",
                     type: "raster",
                     source: "esri"
+                },
+                {
+                    id: "3d-buildings",
+                    type: "fill-extrusion",
+                    source: "osm_buildings",
+                    "source-layer": "building",
+                    minzoom: 15,
+                    paint: {
+                        "fill-extrusion-color": "#d40000",
+                        "fill-extrusion-height": [
+                            "interpolate",
+                            ["linear"],
+                            ["zoom"],
+                            15, 0,
+                            16, ["get", "render_height"]
+                        ],
+                        "fill-extrusion-base": ["get", "render_min_height"],
+                        "fill-extrusion-opacity": 0.8
+                    }
                 }
             ]
         },
         center: [-8.42, 41.55],
-        zoom: 13,
+        zoom: 15,
         pitch: 60,
         bearing: -20,
         antialias: true
@@ -53,6 +76,7 @@ function iniciarMapa3D() {
 
     map3D.addControl(new maplibregl.NavigationControl());
 }
+
 
 
 
